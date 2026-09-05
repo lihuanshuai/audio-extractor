@@ -39,7 +39,7 @@ uv run audio-extractor audio.mp3 -f json -o output.json
 uv run audio-extractor audio.mp3 -d cuda -c float16
 ```
 
-`extract.py` 仍可作为兼容入口：`uv run extract.py audio.mp3`。
+
 
 ### 参数
 
