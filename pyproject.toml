@@ -16,6 +16,7 @@ cuda = [
 
 [project.scripts]
 audio-extractor = "audio_extractor.cli:main"
+audio-extractor-batch = "audio_extractor.batch:main"
 
 [build-system]
 requires = ["hatchling"]
