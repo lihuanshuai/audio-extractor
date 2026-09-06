@@ -16,13 +16,6 @@ GPU 加速需要额外安装 CUDA 12 运行库：
 uv sync --extra cuda
 ```
 
-运行前将 DLL 目录加入 PATH：
-
-```powershell
-$venv = ".venv\Lib\site-packages"
-$env:PATH = "$venv\nvidia\cublas\bin;$venv\nvidia\cuda_runtime\bin;$venv\nvidia\cuda_nvrtc\bin;$venv\nvidia\cudnn\bin;$env:PATH"
-```
-
 ## 使用
 
 ```bash
@@ -37,9 +30,10 @@ uv run audio-extractor audio.mp3 -f json -o output.json
 
 # 使用 GPU 加速
 uv run audio-extractor audio.mp3 -d cuda -c float16
+
+# 批量处理目录下所有音频
+uv run audio-extractor-batch C:/audio --limit 10
 ```
-
-
 
 ### 参数
 
@@ -53,3 +47,15 @@ uv run audio-extractor audio.mp3 -d cuda -c float16
 | `-d, --device` | 运行设备：`cpu`（默认）, `cuda` |
 | `-c, --compute-type` | 计算类型：`auto`, `float16`, `float32`, `int8_float16`, `int8` |
 | `-b, --beam-size` | beam search 宽度（默认 `5`） |
+
+### 批量参数
+
+| 参数 | 说明 |
+|------|------|
+| `root` | 扫描目录路径 |
+| `--model` | 模型大小（默认 `small`） |
+| `--language` | 语言代码（默认 `zh`） |
+| `--device` | 运行设备（默认 `cuda`） |
+| `--compute-type` | 计算类型（默认 `auto`） |
+| `--beam-size` | beam search 宽度（默认 `5`） |
+| `--limit` | 限制处理文件数（默认 `0`=全部） |
