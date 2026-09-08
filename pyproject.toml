@@ -1,10 +1,12 @@
 [project]
 name = "audio-extractor"
-version = "0.1.0"
+version = "0.1.1"
 description = "Extract text from audio files using faster-whisper"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
     "faster-whisper>=1.0.0",
+    "pydantic>=2.0",
+    "tomli>=2.0; python_version < '3.11'",
 ]
 
 [project.optional-dependencies]

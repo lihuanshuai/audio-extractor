@@ -35,7 +35,24 @@ uv run audio-extractor audio.mp3 -d cuda -c float16
 uv run audio-extractor-batch C:/audio --limit 10
 ```
 
+### 配置文件
+
+两个命令默认读取当前工作目录下的 `audio-extractor.toml`，也可通过 `--config` 指定其他文件。
+配置优先级为：命令行参数 > 配置文件 > 内置默认值。
+
+- `[extractor]`：`model`、`language`、`device`、`compute_type`、`beam_size`、`format`。
+- `[batch]`：继承 `[extractor]` 中显式设置的公共转录参数，再应用本节的覆盖值；另支持 `limit`，输出固定为 SRT。
+
+输入、输出路径通过命令行传入。默认配置文件不存在时使用内置默认值；显式指定的文件不存在、配置项未知或值无效时会报错。
+
+```powershell
+uv run audio-extractor audio.mp3 --config C:/config/settings.toml -f srt
+uv run audio-extractor-batch C:/audio --config C:/config/settings.toml --limit 10
+```
+
 ### 参数
+
+以下默认值均为内置默认值，可由配置文件覆盖。
 
 | 参数 | 说明 |
 |------|------|

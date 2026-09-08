@@ -1,0 +1,18 @@
+# CLI options override this file. Paths to input/output files stay on the CLI.
+# This file is loaded automatically when running from this directory.
+
+[extractor]
+model = "small"
+# Omit language for automatic language detection.
+# language = "zh"
+device = "cpu"
+compute_type = "auto"
+beam_size = 5
+format = "text"
+
+# Batch inherits explicitly configured extractor transcription options.
+# Batch-specific values override those shared options. Output is always SRT.
+[batch]
+language = "zh"
+device = "cuda"
+limit = 0

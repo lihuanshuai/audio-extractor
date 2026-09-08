@@ -1,6 +1,7 @@
 import argparse
 from pathlib import Path
 
+from audio_extractor.config import BatchConfig, parse_configured_args
 from audio_extractor.core import AUDIO_EXTS, FORMATTERS, load_model, transcribe
 
 
@@ -20,8 +21,10 @@ def main() -> None:
     parser.add_argument("--device", default="cuda", help="Device (cpu/cuda)")
     parser.add_argument("--compute-type", default="auto", help="Compute type")
     parser.add_argument("--beam-size", type=int, default=5, help="Beam size")
-    parser.add_argument("--limit", type=int, default=0, help="Max files to process (0 = all)")
-    args = parser.parse_args()
+    parser.add_argument(
+        "--limit", type=int, default=0, help="Max files to process (0 = all)"
+    )
+    args, _ = parse_configured_args(parser, "batch", BatchConfig)
 
     files = collect_audio_files(args.root)
 
@@ -55,7 +58,7 @@ def main() -> None:
                 language=args.language,
                 beam_size=args.beam_size,
             )
-            with open(out_path, "w", encoding="utf-8") as f:
+            with open(out_path, "w", encoding="utf-8", newline="\n") as f:
                 writer(segments, f)
             print(f"[{i}/{total}] OK  {audio.name}", flush=True)
         except Exception as exc:
